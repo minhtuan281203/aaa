@@ -1,0 +1,68 @@
+﻿@model ProjectSem3.Models.Interview
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="con-cv">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card" style="margin: 100px auto 0 auto; width: 1000px">
+                        <form class="form-horizontal" asp-action="Create">
+                            <div class="card-body">
+                                <h4 class="card-title">Personal Info</h4>
+                               
+                                
+                                <div class="form-group row">
+                                    <label for="fname" asp-for="InterDate"
+                                           class="col-sm-3 text-end control-label col-form-label">InterDate</label>
+                                    @*<div class="col-sm-9">
+                                        <input type="text" asp-for="InterDate"
+                                               class="form-control"
+                                               id="fname"
+                                               placeholder="First Name Here" />
+                                    </div>*@
+                                    @Html.DisplayFor(model => model.InterDate)
+                                </div>
+                                <div class="form-group row">
+                                    <label for="lname" asp-for="Static"
+                                           class="col-sm-3 text-end control-label col-form-label">Static</label>
+                                    <div class="col-sm-9">
+                                       @* <input type="text" asp-for="Static"
+                                               class="form-control"
+                                               id="lname"
+                                               placeholder="Last Name Here" />*@
+                                        @Html.DisplayFor(model => model.Static)
+                                    </div>
+                                </div>
+
+                              
+                            </div>
+                         
+                        </form>
+                    </div>
+
+                </div>
+              
+            </div>
+            </div>
+    </div>
+</div>
+
+

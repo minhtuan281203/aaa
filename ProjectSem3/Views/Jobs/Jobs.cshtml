@@ -1,0 +1,150 @@
+﻿@model IEnumerable<ProjectSem3.Models.Job>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="page-heading about-heading header-text" style="background-image: url(assets/images/heading-6-1920x500.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-content">
+                    <h4>Lorem ipsum dolor sit amet</h4>
+                    <h2>Jobs</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="contact-form">
+
+                    <div class="form-group">
+                        <h5>Jobs Search</h5>
+                    </div>
+
+                    <div class="row">
+                        <form asp-action="Jobs" method="get">
+                            @*@using (Html.BeginForm("Jobs","Jobs",FormMethod.Get))
+                            { *@
+                            <div class="col-8">
+
+                                <input name="searchString" value="@ViewData["searchString"]" type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+
+                            </div>
+
+                            <div class="col-4">
+                                <button class="filled-button" type="submit">Go</button>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <form method="get" asp-action="Search">
+                        <h5 style="margin-top: 20px">Type Job</h5>
+
+                        <div class="form-group">
+                            <label class="control-label">JTitle</label>
+                            <select id="Id" asp-items="ViewBag.JTitle"></select>
+                        </div>
+                        @*<div class="form-group">
+                            <label class="control-label">CName</label>
+                            <select id="Id2" asp-items="ViewBag.CName"></select>
+                        </div>*@
+                        @*<div class="form-group">
+                            <label class="control-label">CaName</label>
+                            <select id="Id3" asp-items="ViewBag.CaName"></select>
+                        </div>*@
+                        <div class="form-group">
+                            <input type="submit" id="btnSearch" value="Search" class="btn btn-primary"/>
+                        </div>
+
+                        <br>
+                    </form>
+
+                    <div id="data"></div>
+                    @section Scripts
+                        {
+                        <script>
+                            $(function () {
+                                var filters = {
+                                    Id: null,
+                                    Id2: null,
+                                    Id3: null
+                                };
+                                GetData(filters);
+                            });
+                            $('#btnSearch').on('click', function (e) {
+                                var filters = {
+                                    Id: $('#Id').val(),
+                                    Id2: $('#Id2').val(),
+                                    Id3: $('#Id3').val()
+                                };
+                                GetData(filters);
+                            });
+                            function GetData(filters) {
+                                $.ajax({
+                                    url: '/Jobs/Search',
+                                    type: 'Get',
+                                    cache: false,
+                                    async: true,
+                                    dataType: "html",
+                                    data: filters
+                                })
+                                    .done(function (result) {
+                                        $('#data').html(result);
+                                    }).fail(function (xhr) {
+                                        console.log('error : ' + xhr.status + ' - ' + xhr.statusText + ' - ' + xhr.responseText);
+                                    });
+
+                            }
+                        </script>
+                    }
+
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-6">
+                            <div class="product-item">
+                                <a asp-controller="Jobs" asp-action="JobDetails" asp-route-id="@item.Id"><img src="~/assets/images/@Html.DisplayFor(modelItem => item.Image)" alt=""></a>
+                                <div class="down-content">
+                                    <a asp-controller="Jobs" asp-action="JobDetails" asp-route-id="@item.Id"><h4 style="color: red">  @Html.DisplayFor(modelItem => item.Title)</h4></a>
+
+                                    <h6>@Html.DisplayFor(modelItem => item.Wage)</h6>
+
+                                    <h4><small><i class="fa fa-briefcase"></i>Vị trí: @Html.DisplayFor(modelItem => item.Vacancy) <br> <strong><i class="fa fa-building"></i> @Html.DisplayFor(modelItem => item.Company!.Name)</strong></small></h4>
+
+                                    <small>
+                                        <strong title="Posted on"><i class="fa fa-calendar"></i> @Html.DisplayFor(modelItem => item.DateCreate)</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <strong title="Location"><i class="fa fa-map-marker"></i> @Html.DisplayFor(modelItem => item.Address)</strong>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+
+                    <div class="col-md-12">
+                        <ul class="pages">
+                            <li><a href="#">1</a></li>
+                            <li class="active"><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
